@@ -56,5 +56,15 @@ namespace Hangman
             guesses.Add(guess);
             return guesses;
         }
+
+        public int CalcLives(string word, List<string> guesses, int lives)
+        {
+            foreach (var letter in guesses)
+            {
+                if (!word.Contains(letter))
+                    lives -= 1;   
+            }
+            return lives;
+        }
     }
 }

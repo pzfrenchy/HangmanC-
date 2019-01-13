@@ -14,7 +14,7 @@ namespace HangmanTests
         }
 
         [TestMethod]
-        public void GenerateWord_returns_string()
+        public void GenerateWord_ReturnsString()
         {
             HangmanMain hm = MakeHangman();
             List<string> words = new List<string> { "big" , "car" , "lorry" };
@@ -23,47 +23,47 @@ namespace HangmanTests
         }
 
         [TestMethod]
-        public void GetWord_returns_correct_format()
+        public void GenerateWordString_ReturnsCorrectFormat()
         {
             HangmanMain hm = MakeHangman();
             string word = "abc" ;
-            List<string> guesses = new List<string> { "d" };
+            List<string> guesses = new List<string> { "" };
 
-            Assert.AreEqual(hm.GenerateWordString(word, guesses), "___");
+            Assert.AreEqual("___", hm.GenerateWordString(word, guesses));
         }
 
         [TestMethod]
-        public void GetWord_returns_correct_format_with_1_guess()
+        public void GenerateWordString_OneGuess_ReturnsCorrectFormat()
         {
             HangmanMain hm = MakeHangman();
             string word = "abc";
             List<string> guesses = new List<string> { "a" };
 
-            Assert.AreEqual(hm.GenerateWordString(word, guesses), "a__");
+            Assert.AreEqual("a__", hm.GenerateWordString(word, guesses));
         }
 
         [TestMethod]
-        public void GetWord_returns_correct_format_with_2_guess()
+        public void GenerateWordString_CorrectGuesses_ReturnsCorrectFormat()
         {
             HangmanMain hm = MakeHangman();
             string word = "abc";
             List<string> guesses = new List<string> { "a" , "c" };
 
-            Assert.AreEqual(hm.GenerateWordString(word, guesses), "a_c");
+            Assert.AreEqual("a_c", hm.GenerateWordString(word, guesses));
         }
 
         [TestMethod]
-        public void GetWord_returns_correct_format_with_incorrect_guess()
+        public void GenerateWordString_IncorrectGuesses_ReturnsCorrectFormat()
         {
             HangmanMain hm = MakeHangman();
             string word = "abc";
             List<string> guesses = new List<string> { "d" , "a" };
 
-            Assert.AreEqual(hm.GenerateWordString(word, guesses), "a__");
+            Assert.AreEqual("a__", hm.GenerateWordString(word, guesses));
         }
 
         [TestMethod]
-        public void AddToGuesses_increases_list_items()
+        public void AddToGuesses_IncreasesListItems()
         {
             HangmanMain hm = MakeHangman();
             List<string> guesses = new List<string> { };
@@ -71,7 +71,40 @@ namespace HangmanTests
 
             guesses = hm.AddToGuesses(guesses, guess);
 
-            Assert.AreEqual(guesses.Count, 1);
+            Assert.AreEqual(1, guesses.Count);
+        }
+
+        [TestMethod]
+        public void CalcLives_AllCorrectGuesses_ReturnsAllLivesRemaing()
+        {
+            HangmanMain hm = MakeHangman();
+            string word = "abc";
+            List<string> guesses = new List<string> { "a" };
+            int lives = 3;
+
+            Assert.AreEqual(3, hm.CalcLives(word, guesses, lives));
+        }
+
+        [TestMethod]
+        public void CalcLives_WrongGuesses_ReturnsCorrectLivesRemaing()
+        {
+            HangmanMain hm = MakeHangman();
+            string word = "abc";
+            List<string> guesses = new List<string> { "d" , "f" };
+            int lives = 3;
+
+            Assert.AreEqual(1, hm.CalcLives(word, guesses, lives));
+        }
+
+        [TestMethod]
+        public void CalcLives_MixedGuesses_ReturnsCorrectLivesRemaing()
+        {
+            HangmanMain hm = MakeHangman();
+            string word = "abc";
+            List<string> guesses = new List<string> { "a" , "d" };
+            int lives = 3;
+
+            Assert.AreEqual(2, hm.CalcLives(word, guesses, lives));
         }
     }
 }

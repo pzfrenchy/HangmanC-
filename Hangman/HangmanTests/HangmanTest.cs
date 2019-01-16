@@ -213,5 +213,25 @@ namespace HangmanTests
 
             Assert.IsTrue(hm.DuplicateGuess(guesses, guess));
         }
+
+        [TestMethod]
+        public void ValidInput_SingleCharacter_ReturnsTrue()
+        {
+            HangmanMain hm = MakeHangman();
+
+            string guess = "a";
+
+            Assert.IsTrue(hm.ValidInput(guess));
+        }
+
+        [TestMethod]
+        public void ValidInput_DoubleCharacter_ReturnsFalse()
+        {
+            HangmanMain hm = MakeHangman();
+
+            string guess = "ab";
+
+            Assert.IsFalse(hm.ValidInput(guess));
+        }
     }
 }

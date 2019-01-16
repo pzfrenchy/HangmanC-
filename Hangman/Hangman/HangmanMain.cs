@@ -88,6 +88,11 @@ namespace Hangman
             return Console.ReadLine();
         }
 
+        public bool ValidInput(string guess)
+        {
+            return guess.Length == 1;
+        }
+
         public void PlayGame()
         {
             bool cont = true;
@@ -102,9 +107,9 @@ namespace Hangman
                     Console.WriteLine(GenerateWordString(word, guesses));
                     Console.WriteLine(string.Format("Current guesses: {0}", FormatGuessesForPrinting(guesses)));
                     string guess = OutputGuessRequest();
-                    while (DuplicateGuess(guesses, guess))
+                    while (DuplicateGuess(guesses, guess) || !ValidInput(guess))
                     {
-                        Console.WriteLine("Duplicate");
+                        Console.WriteLine("Invalid input");
                         guess = OutputGuessRequest();
                     }
                     AddStringToList(guesses, guess);
@@ -118,5 +123,7 @@ namespace Hangman
                     cont = false;
             }
         }
+
+
     }
 }
